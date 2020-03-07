@@ -1,27 +1,22 @@
 <template>
-  <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+  <!-- 对应的组件视图 -->
+  <router-view/>
+  <!-- 组件 -->
+  <FooterTab/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 引入FooterTab组件
+import FooterTab from './components/FooterTab/FooterTab'
 export default {
   name: 'App',
+  // 注册组件
   components: {
-    HelloWorld
+    FooterTab
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" rel="stylesheet/stylus">
 </style>
