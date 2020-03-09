@@ -1,7 +1,9 @@
 <template>
   <div>
   <!-- 对应的组件视图 -->
-  <router-view/>
+  <keep-alive>
+    <router-view/>
+  </keep-alive>
   <!-- 组件 -->
   <FooterTab/>
   </div>
@@ -11,7 +13,7 @@
 // 引入FooterTab组件
 import FooterTab from './components/FooterTab/FooterTab'
 export default {
-  name: 'App',
+  // name: 'App',
   // 注册组件
   components: {
     FooterTab

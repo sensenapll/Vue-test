@@ -1,5 +1,5 @@
 import Home from '../pages/Home/Home.vue'
-import Item from '../pages/Item/Item.vue'
+import CategoryList from '../pages/CategoryList/CategoryList'
 import Topic from '../pages/Topic/Topic.vue'
 import Cart from '../pages/Cart/Cart.vue'
 import User from '../pages/User/User.vue'
@@ -10,8 +10,8 @@ export default [
     component: Home,
   },
   {
-    path: '/item',
-    component: Item,
+    path: '/categoryList',
+    component: CategoryList,
   },
   {
     path: '/topic',

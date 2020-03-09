@@ -6,7 +6,7 @@
       </span>
       <span>首页</span>
     </a>
-    <a href="javascript:;" class="guide_item" @click="goto('/item')" :class="{on:$route.path==='/item'}">
+    <a href="javascript:;" class="guide_item" @click="goto('/categorylist')" :class="{on:$route.path==='/categorylist'}">
       <span class="item_icon">
         <i class="iconfont icon-fenlei"></i>
       </span>

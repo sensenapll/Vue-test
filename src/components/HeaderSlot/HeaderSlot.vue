@@ -1,50 +1,78 @@
 <template>
-  <div class="reco-container">
-    <HeaderSlot>
-      <div class="header-title" slot="headerTitle">
-        <span :class="{on:  isOn}" @click="gotoFindOrSelect(true)">发现</span>
-        <span :class="{on:  !isOn}" @click="gotoFindOrSelect(false)">甄选家</span>
+  <div class="slot-container">
+    <header class="header-slot" slot="headerSlot">
+      <span class="home-icon" @click="$router.replace('/home')"></span>
+      <slot name="headerTitle"></slot>
+      <div class="search-cart-icon">
+        <span @click="$router.push('/search')"></span>
+        <span @click="$router.push('/shopcart')"></span>
       </div>
-    </HeaderSlot>
-    <!-- 轮播图 -->
-    <router-view />
+    </header>
+    <div class="reco-nav" v-if="$route.path.indexOf('recommend') !== -1">
+      <ul class="ul-node">
+        <li  :class="{active: tabIndex * 1 === index}" v-for="(tab, index) in recommendTabs" :key="tab.tabId">
+          <router-link :to="{path: '/recommend/find', query: {tabIndex: index}}">{{tab.tabName}}</router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
-import HeaderSlot from '../../components/HeaderSlot/HeaderSlot'
+  import {mapState} from 'vuex';
+  import BScroll from 'better-scroll';
   export default {
-    data () {
-      return {
-        isOn: true
+    mounted () {
+      if (this.$route.path.indexOf('recommend') !== -1) {
+        this.$store.dispatch('getRecommendTabs');
+        this._setUlWidth();
+        this._initScroll();
+        // 实现从其他组件切换时初始显示为推荐页的功能
+        if (!this.$route.query.tabIndex) {
+          this.$store.dispatch('updateTabIndex', 0);
+        }
       }
     },
-    components:{
-      HeaderSlot
-    },
-    mounted () {
-      // 识物页面初始显示时即请求数据,为路由组件使用数据做准备
-      this.$store.dispatch('getRecommendTabs');
-      this.$store.dispatch('getRecommends');
+    computed: {
+      ...mapState({
+        recommendTabs: state => state.recommend.recommendTabs,
+        tabIndex: state => state.recommend.tabIndex
+      })
     },
     methods: {
-      gotoFindOrSelect (isGoToFind) {
-        this.isOn = !this.isOn;
-        if (isGoToFind) {
-          // 跳转到find--发现页面
-            this.$router.push('/recommend/find');
-        } else {
-          // 跳转到select--甄选页面
-          this.$router.push('/recommend/select');
-        }
+      // 实现导航区域的水平滑动
+      _setUlWidth () {
+        const ul = document.querySelector('.ul-node');
+        let ulWidth;
+        const lis = ul.querySelectorAll('li');
+        Array.from(lis).forEach(li => {
+          const width = li.clientWidth * lis.length + 50 * (lis.length - 1);
+          ulWidth = width;
+        });
+        ul.style.width = ulWidth + 'px';
+      },
+      _initScroll () {
+        /* eslint-disable no-new */
+        new BScroll('.reco-nav', {
+          click: true,
+          scrollX: true
+        })
+      }
+    },
+    // 监视$route.query.tabIndex的变化，更新state中的tabIndex
+    watch: {
+      $route () {
+        this.$store.dispatch('updateTabIndex', this.$route.query.tabIndex);
       }
     }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/stylus/mixins.styl";
-    .reco-container
-      padding-bottom 100px
-      .reco-header
+    .slot-container
+      position relative
+      z-index 100
+      width 100%
+      .header-slot
         display flex
         justify-content space-between
         align-items center
@@ -60,7 +88,7 @@ import HeaderSlot from '../../components/HeaderSlot/HeaderSlot'
           background-size 46px 46px
           span
             font-size 46px
-        .reco-title
+        .header-title
           display flex
           justify-content space-between
           align-items center
@@ -100,6 +128,6 @@ import HeaderSlot from '../../components/HeaderSlot/HeaderSlot'
             margin 0 20px
             padding 0 4px
             &.active
-             color $red
-             border-bottom 3px solid $red
+              color $red
+              border-bottom 3px solid $red
 </style>
