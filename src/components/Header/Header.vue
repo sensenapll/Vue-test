@@ -87,7 +87,7 @@ export default {
           click: true,
           scrollX: true
         });
-        this.recoIndex = this.$refs.recoLi.getAttribute('data-index') * 1;
+        // this.recoIndex = this.$refs.recoLi.getAttribute('data-index') * 1;
         // this._getLefts();
       })
     }

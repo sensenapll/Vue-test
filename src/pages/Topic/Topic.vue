@@ -2,15 +2,18 @@
   <div class="reco-container">
     <HeaderSlot>
       <div class="header-title" slot="headerTitle">
-        <span :class="{on:  isOn}" @click="gotoFindOrSelect(true)">发现</span>
-        <span :class="{on:  !isOn}" @click="gotoFindOrSelect(false)">甄选家</span>
+        <span :class="{on:  isOn}" @click="gotoFindOrSelect(true)">值得买</span>
       </div>
     </HeaderSlot>
-    <!-- 轮播图 -->
+    
     <router-view />
   </div>
 </template>
 <script>
+import Vue from 'vue';
+import { Swipe, SwipeItem } from 'vant';
+Vue.use(Swipe);
+Vue.use(SwipeItem);
 import HeaderSlot from '../../components/HeaderSlot/HeaderSlot'
   export default {
     data () {

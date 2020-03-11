@@ -41,21 +41,21 @@
   </section>
 </template>
 <script>
-  import {mapState} from 'vuex';
+  // import {mapState} from 'vuex';
   export default {
     data () {
       return {
         isShow: true
       }
     },
-    computed: {
-      ...mapState({
-        popularItem: state => state.home.popularItem
-      }),
-      getPopularItem () {
-        return [...this.popularItem].splice(1, 4);
-      }
-    }
+    // computed: {
+    //   ...mapState({
+    //     popularItem: state => state.home.popularItem
+    //   }),
+    //   getPopularItem () {
+    //     return [...this.popularItem].splice(1, 4);
+    //   }
+    // }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>

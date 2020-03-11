@@ -28,7 +28,7 @@
   </section>
 </template>
 <script>
-  import {mapState} from 'vuex';
+  // import {mapState} from 'vuex';
   export default {
     data () {
       return {
@@ -37,14 +37,14 @@
         second: 59
       }
     },
-    computed: {
-      ...mapState({
-        flashSale: state => state.home.flashSale
-      })
-    },
-    mounted () {
-      this._timeDown();
-    },
+    // computed: {
+    //   ...mapState({
+    //     flashSale: state => state.home.flashSale
+    //   })
+    // },
+    // mounted () {
+    //   this._timeDown();
+    // },
     methods: {
       _timeDown () {
         this.intervalId = setInterval(() => {
